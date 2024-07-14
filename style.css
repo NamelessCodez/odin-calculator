@@ -26,11 +26,13 @@ body {
     background-color: grey;
     height: 110px;
     border-bottom: 5px solid black;
+    font-size: 48px;
+    text-align: end;
+    padding: 24px 8px;
 }
 
 .buttons div {
     display: flex;
- 
     flex-grow: 1;
     gap: 4px;
 }
@@ -60,4 +62,8 @@ button {
 .top-button {
     background-color: #d4d4d2;
     color: #1c1c1c;
+}
+
+button:active {
+    transform: translateY(2px);
 }

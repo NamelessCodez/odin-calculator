@@ -6,6 +6,7 @@ const display = document.querySelector('.display');
 const numberKeys = document.querySelectorAll('.number');
 const mainOperations = document.querySelectorAll('.main-operation');
 const equalsKey = document.querySelector('.equals');
+const resetButton = document.querySelector('.reset-button');
 
 numberKeys.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -43,7 +44,6 @@ mainOperations.forEach((btn) => {
 });
 
 equalsKey.addEventListener('click', () => {
-    console.log(firstNumStr)
     if (firstNumStr && secondNumStr) {
         firstNumStr = operate(operator, parseInt(firstNumStr), parseInt(secondNumStr)).toString();
         secondNumStr = '';
@@ -51,6 +51,12 @@ equalsKey.addEventListener('click', () => {
     }
 });
 
+resetButton.addEventListener('click', () => {
+    firstNumStr = '';
+    secondNumStr = '';
+    operator = '';
+    display.textContent = 0;
+});
 function add(a, b) {
     return a + b;
 }

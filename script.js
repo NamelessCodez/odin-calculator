@@ -19,7 +19,6 @@ numberKeys.forEach((btn) => {
             secondNumStr += numClicked;
             display.textContent = secondNumStr;
         }
-        // if oper
         else {
             firstNumStr += numClicked;
             display.textContent = firstNumStr;
@@ -33,9 +32,14 @@ mainOperations.forEach((btn) => {
         // ignore clicks if the first number has not been assigned
         if (firstNumStr) {
             operator = selectedOperator;
-            display.textContent = ''
+            display.textContent = '0';
         } 
         if (firstNumStr && secondNumStr) {
+            if (operator == '/' && secondNumStr == '0') {
+                alert("Zero division error, resetting the calculator");
+                setTimeout(resetCalculator, 1000);
+                return;
+            }
             firstNumStr = operate(operator, parseFloat(firstNumStr), parseFloat(secondNumStr));
             secondNumStr = '';
             display.textContent = firstNumStr;
@@ -46,19 +50,18 @@ mainOperations.forEach((btn) => {
 
 equalsKey.addEventListener('click', () => {
     if (firstNumStr && secondNumStr) {
-
+        if (operator == '/' && secondNumStr == '0') {
+            alert("Zero division error, resetting the calculator");
+            setTimeout(resetCalculator, 1000);
+            return
+        }
         firstNumStr = operate(operator, parseFloat(firstNumStr), parseFloat(secondNumStr)).toString();
         secondNumStr = '';
         display.textContent = firstNumStr;
     }
 });
 
-resetButton.addEventListener('click', () => {
-    firstNumStr = '';
-    secondNumStr = '';
-    operator = '';
-    display.textContent = ''
-});
+resetButton.addEventListener('click', resetCalculator);
 
 toggleSignButton.addEventListener('click', () => {
     //if secondNumStr exists, means we are assigning value to it at the moment on the screen
@@ -90,14 +93,34 @@ percentageButton.addEventListener('click', () => {
 });
 
 decimelButton.addEventListener('click', () => {
+    //if we are assigning secondNumStr and the user has already pressed a num key
     if(secondNumStr && !(secondNumStr.includes('.'))) {
         secondNumStr = secondNumStr + '.';
         display.textContent = secondNumStr;
-    } else if (firstNumStr && !(secondNumStr) && !(firstNumStr.includes('.'))) {
+    } 
+    // if we are assigning firstNumStr and the user has already pressed a num key
+    else if (firstNumStr && !(secondNumStr) && !(firstNumStr.includes('.'))) {
         firstNumStr = firstNumStr + '.';
         display.textContent = firstNumStr;
     }
-})
+    // if we are assigning secondNumStr and the user has not yet pressed a num key  
+    else if (firstNumStr && !(secondNumStr) && display.textContent === '0') {
+        secondNumStr = '0.';
+        display.textContent = secondNumStr;
+    }
+    // if we are assigning firstNumStr and the user has not yet pressed a num key 
+    else if (!(firstNumStr)) {
+        firstNumStr = '0.';
+        display.textContent = firstNumStr;
+    }
+});
+
+function resetCalculator() {
+    firstNumStr = '';
+    secondNumStr = '';
+    operator = '';
+    display.textContent = '0';
+}
 function add(a, b) {
     return a + b;
 }

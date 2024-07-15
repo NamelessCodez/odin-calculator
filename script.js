@@ -42,6 +42,7 @@ mainOperations.forEach((btn) => {
             }
             firstNumStr = operate(operator, parseFloat(firstNumStr), parseFloat(secondNumStr));
             secondNumStr = '';
+            if (firstNumStr.length > 16) firstNumStr = (parseFloat(firstNumStr).toPrecision(16)).toString();
             display.textContent = firstNumStr;
             operator = selectedOperator;
         }
@@ -57,6 +58,7 @@ equalsKey.addEventListener('click', () => {
         }
         firstNumStr = operate(operator, parseFloat(firstNumStr), parseFloat(secondNumStr)).toString();
         secondNumStr = '';
+        if (firstNumStr.length > 16) firstNumStr = (parseFloat(firstNumStr).toPrecision(16)).toString();
         display.textContent = firstNumStr;
     }
 });

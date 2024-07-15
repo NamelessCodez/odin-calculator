@@ -7,6 +7,7 @@ const numberKeys = document.querySelectorAll('.number');
 const mainOperations = document.querySelectorAll('.main-operation');
 const equalsKey = document.querySelector('.equals');
 const resetButton = document.querySelector('.reset-button');
+const toggleSignButton = document.querySelector('.toggle-sign');
 
 numberKeys.forEach((btn) => {
     btn.addEventListener('click', () => {
@@ -56,6 +57,21 @@ resetButton.addEventListener('click', () => {
     secondNumStr = '';
     operator = '';
     display.textContent = 0;
+});
+
+toggleSignButton.addEventListener('click', () => {
+    if (secondNumStr && secondNumStr.includes('-')) {
+        secondNumStr = secondNumStr.replace('-', '');
+    } else if (secondNumStr) {
+        secondNumStr = '-' + secondNumStr;
+    } else if (firstNumStr && firstNumStr.includes('-')) {
+        firstNumStr = firstNumStr.replace('-', '');
+    } else if (firstNumStr) {
+        firstNumStr = '-' + firstNumStr;
+    }
+
+    if (secondNumStr) display.textContent = secondNumStr
+    else if (firstNumStr) display.textContent = firstNumStr
 });
 function add(a, b) {
     return a + b;
